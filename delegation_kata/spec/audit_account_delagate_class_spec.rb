@@ -2,7 +2,7 @@ require_relative '../lib/bank_account'
 require 'rspec-given'
 require 'delegate'
 
-class AuditAccount < SimpleDelegator
+class AuditAccount2 < DelegateClass(BankAccount)
   attr_reader :log
 
   def initialize(account, log)
@@ -16,7 +16,7 @@ class AuditAccount < SimpleDelegator
   end
 end
 
-RSpec.describe AuditAccount do
+RSpec.describe AuditAccount2 do
   Given(:audit_log) { double record: nil }
   Given(:account) { BankAccount.new(20.0) }
   Given(:audit_account) { described_class.new(account, audit_log) }
@@ -30,7 +30,7 @@ RSpec.describe AuditAccount do
   end
 
   Then do
-    expect(described_class.instance_methods.include?(:number)).to be false
+    expect(described_class.instance_methods.include?(:number)).to be true
   end
 
   Then do
