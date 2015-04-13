@@ -1,4 +1,4 @@
-# based upon Ruby Tapas episod 290
+# based upon Ruby Tapas episod 290, 291
 
 require 'minitest/autorun'
 
@@ -153,6 +153,30 @@ describe Array do
         [:identifier, ["p", "r", "i", "n", "t"]],
         [:identifier, ["t", "o", "t", "a", "l"]],
         [:endline, ["\n", "\n"]]
+      ]
+    end
+
+    it 'code example using chunk operators should ignore whitespaces' do
+      code = File.read('fixtures/dummy_code_2.rb')
+
+      code
+      .chars
+      .chunk{|c|
+        case c
+        when /\n/ then :endline
+        when /[[:alpha:]]/ then :identifier
+        when /[\!\+\-\=\/\*]/ then :_alone # special chunk operator
+        when /\d/ then :number
+        end
+      }
+      .to_a
+      .must_equal [
+        [:identifier, ["b", "o", "o", "l"]],
+        [:_alone, ["="]],
+        [:_alone, ["!"]],
+        [:_alone, ["!"]],
+        [:identifier, ["r", "e", "s", "u", "l", "t"]],
+        [:endline, ["\n"]]
       ]
     end
   end
