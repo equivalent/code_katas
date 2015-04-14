@@ -1,4 +1,4 @@
-class Object
+module PositiveBlockCalls
   def if_true
     yield
     self
@@ -9,7 +9,7 @@ class Object
   end
 end
 
-class FalseClass
+module NegativeBlockCalls
   def if_true
     self
   end
@@ -20,13 +20,6 @@ class FalseClass
   end
 end
 
-class NilClass
-  def if_true
-    self
-  end
-
-  def if_false
-    yield
-    self
-  end
-end
+Object.send(:include, PositiveBlockCalls)
+FalseClass.send(:include, NegativeBlockCalls)
+NilClass.send(:include, NegativeBlockCalls)
