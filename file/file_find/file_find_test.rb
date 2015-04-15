@@ -2,7 +2,12 @@ require 'pathname'
 require 'minitest/autorun'
 
 describe File do
-  let(:folder) { Pathname.new('./fixtures').expand_path }
+  let(:folder) {
+    Pathname
+      .new(File.dirname(__FILE__))
+      .expand_path
+      .join('fixtures')
+  }
 
   describe '#find' do
     it 'should be enum' do
