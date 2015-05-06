@@ -9,6 +9,7 @@ end
 
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = Dir.glob('**/*_spec.rb')
+  t.exclude_pattern = 'vendor'
   # t.rspec_opts = '--format documentation'
 end
 
