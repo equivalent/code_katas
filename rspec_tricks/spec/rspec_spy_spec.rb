@@ -57,5 +57,33 @@ RSpec.describe DummyRunner do
         expect(user).not_to have_received(:set_other_stuff)
       end
     end
+
+    context 'describe using instance_spy' do
+      context 'when class is implemeted' do
+        Foo = Class.new
+        let(:foo) { instance_spy 'Foo' }
+
+        it 'should raise error that spy have not implemeted public_method' do
+          expect {
+            DummyRunner.new(foo).run
+          }.to raise_error(/Foo does not implement: set_stuff/)
+          # if class matching string ('Foo') spy_instance will compare
+          # Class public methods before it's evalueted
+          # therefore it won't get to `expect(foo).to have_received(:set_stuff)`
+        end
+      end
+
+      context 'when class still not implemeted' do
+        let(:bar) { instance_spy 'Bar' }
+
+        before do
+          DummyRunner.new(bar).run
+        end
+
+        it 'it should proceed to' do
+          expect(bar).to have_received(:set_stuff)
+        end
+      end
+    end
   end
 end
