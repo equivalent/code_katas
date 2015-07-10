@@ -66,7 +66,7 @@ RSpec.describe DummyRunner do
         it 'should raise error that spy have not implemeted public_method' do
           expect {
             DummyRunner.new(foo).run
-          }.to raise_error(/Foo does not implement: set_stuff/)
+          }.to raise_error(/does not implement the instance method: set_stuff/)
           # if class matching string ('Foo') spy_instance will compare
           # Class public methods before it's evalueted
           # therefore it won't get to `expect(foo).to have_received(:set_stuff)`

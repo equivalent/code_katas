@@ -10,6 +10,7 @@ end
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = Dir.glob('**/*_spec.rb').reject do |path|
     path.include?('vendor')  # tell travis CI to ignore vendor tests
+    path.include?('sandi_metz_object_oriented_design')
   end
   # t.rspec_opts = '--format documentation'
 end
