@@ -27,5 +27,7 @@ describe Bar do
     ary = [3, 5, 6, 3, 3, 5]
 
     Bar.solution(ary).must_equal([[0,3], [0,4], [3,4], [1,5]])
+
+    Bar.solution(ary).size.must_equal(4)
   end
 end
