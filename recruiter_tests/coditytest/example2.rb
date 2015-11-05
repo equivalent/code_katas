@@ -4,7 +4,10 @@ module Bar
   def self.find_index(ary, e)
     ary.each_index.select{|i| ary[i] == e}
   end
-
+  
+  # to be honestt I should come up with better enumerators
+  # more "lazy enumerators" but this is as far as I came 
+  # within the time limit
   def self.solution(ary)
     ary
       .inject({}) do |hash, e|
