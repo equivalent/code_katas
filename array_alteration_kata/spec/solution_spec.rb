@@ -11,7 +11,7 @@ RSpec.describe Solution do
     end
   end
 
-  xcontext 'full example' do
+  context 'full example' do
     let(:a) { [1,3,5] }
     let(:b) { [2, 4, 8] }
     it do
