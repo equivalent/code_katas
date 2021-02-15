@@ -1,4 +1,8 @@
-02 codility - array rotation
+02 codility - CyclicRotation
+
+
+* https://app.codility.com/programmers/lessons/2-arrays/cyclic_rotation/
+* https://docs.google.com/document/d/1tF8UlyzxRaOhvD3c9PU5W7caN5sLSjWfg9rK8isQ4s4/edit?usp=sharing (my private notes)
 
 
 ```
