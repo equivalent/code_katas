@@ -15,6 +15,7 @@ module Solution
   extend self
 
   def solution(a)
+    a.detect{ |e| a.count(e) <= 1 }
   end
 end
 
