@@ -1,21 +1,20 @@
 require 'spec_helper'
 
 
-#   A[0] = 9  A[1] = 3  A[2] = 9
-#   A[3] = 3  A[4] = 9  A[5] = 7
-#   A[6] = 9
-#
-#   N is an odd integer within the range [1..1,000,000];
-#   each element of array A is an integer within the range [1..1,000,000,000];
-#   all but one of the values in A occur an even number of times.
-
-
-
 module Solution
   extend self
 
   def solution(a)
-    a.detect{ |e| a.count(e).odd? }
+    occurences = { }
+    a.each do |item|
+      if occurences[item]
+        occurences[item] = false
+      else
+        occurences[item] = true
+      end
+    end
+
+    occurences.select { |k, v| v }.keys.first
   end
 end
 
@@ -38,9 +37,22 @@ RSpec.describe Solution do
     it { expect(res).to eq nil }
   end
 
-
   context do
     let(:a) { [2,1,2,1,2] }
     it { expect(res).to eq 2 }
+  end
+
+  context 'heavy performance' do
+    let(:a) do
+      x  = []
+      1000.times do |n|
+        item = n * 999_999
+        x << item
+        x << item
+      end
+      x << 777_777_777
+      x
+    end
+    it { expect(res).to eq 777_777_777 }
   end
 end
