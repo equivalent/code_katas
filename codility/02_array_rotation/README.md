@@ -11,5 +11,6 @@ each element of array A is an integer within the range [−1,000..1,000]
 
 ## Solution
 
-
 solution can be found in `spec/solution_spec.rb`
+
+Codility evaluation of solution 100% https://app.codility.com/demo/results/trainingXNDDEK-7Y9/
