@@ -6,6 +6,8 @@ require 'spec_helper'
 #   def solution(n)
 #
 #that, given a positive integer N, returns the length of its longest binary gap. The function should return 0 if N doesn't contain a binary gap.
+#
+#N is an integer within the range [1..2,147,483,647].
 
 module Solution
   def solution(n)
