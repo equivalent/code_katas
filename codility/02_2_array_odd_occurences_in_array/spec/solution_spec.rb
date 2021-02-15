@@ -15,7 +15,7 @@ module Solution
   extend self
 
   def solution(a)
-    a.detect{ |e| a.count(e) <= 1 }
+    a.detect{ |e| a.count(e).odd? }
   end
 end
 
@@ -26,5 +26,21 @@ RSpec.describe Solution do
     let(:a) { [9, 3, 9, 3, 9, 7, 9] }
 
     it { expect(res).to eq 7 }
+  end
+
+  context do
+    let(:a) { [1] }
+    it { expect(res).to eq 1 }
+  end
+
+  context do
+    let(:a) { [1,1] }
+    it { expect(res).to eq nil }
+  end
+
+
+  context do
+    let(:a) { [2,1,2,1,2] }
+    it { expect(res).to eq 2 }
   end
 end
