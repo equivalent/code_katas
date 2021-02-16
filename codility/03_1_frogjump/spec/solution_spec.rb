@@ -1,23 +1,15 @@
 require 'spec_helper'
+require 'irb'
 module Solution
   extend self
 
   def solution(x,y,d)
     return 0 if x == y
-    count = 0
-    begin
-      count += 1
-      x = x + d
-    end while x < y
-    count
+    return 0 if x > y
+    count = (y-x) / d.to_f
+    count.ceil
   end
 end
-
-
-# given three integers X, Y and D, returns the minimal number of jumps from position X to a position equal to or greater than Y.
-#
-# X, Y and D are integers within the range [1..1,000,000,000];
-# X ≤ Y.
 
 RSpec.describe Solution do
   let(:res) { described_class.solution(x,y,d) }
@@ -64,10 +56,34 @@ RSpec.describe Solution do
     it { expect(res).to eq 1 }
   end
 
-  xcontext do
+  context do
     let(:x) { 1 }
     let(:y) { 1_000_000_000 }
     let(:d) { 1 }
+
+    it { expect(res).to eq 999_999_999 }
+  end
+
+  context do
+    let(:x) {   900 }
+    let(:y) { 1_000 }
+    let(:d) { 17 }
+
+    it { expect(res).to eq 6 }
+  end
+
+  context do
+    let(:x) { 9 }
+    let(:y) { 8 }
+    let(:d) { 1 }
+
+    it { expect(res).to eq 0 }
+  end
+
+  context do
+    let(:x) { 2 }
+    let(:y) { 9 }
+    let(:d) { 1_000 }
 
     it { expect(res).to eq 1 }
   end
