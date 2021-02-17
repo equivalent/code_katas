@@ -1,15 +1,17 @@
 require 'spec_helper'
+require 'benchmark'
 module Solution
   extend self
 
   def solution(a)
-    max_product = 0
+    max_product = nil
     a.combination(3).each do |triplet|
       #p triplet
       product = triplet.inject(:*)
       #p product
       #puts "\n"
-      max_product = product if product > max_product
+      max_product = product if max_product.nil?
+      max_product = product if  product > max_product
     end
     max_product
   end
@@ -26,7 +28,17 @@ end
 
 RSpec.describe Solution do
 
-  let(:res) { described_class.solution(a)  }
+  def res
+    r = nil
+    measurement = Benchmark.measure do
+      r = described_class.solution(a)
+    end
+    puts "BENCH Real: #{measurement.real}"
+    puts "BENCH utime: #{measurement.utime}"
+    puts "BENCH stime: #{measurement.stime}"
+    puts "\n"*4
+    r
+  end
 
   context do
     let(:a) { [-3,1,2,-2,5,6] }
@@ -46,10 +58,19 @@ RSpec.describe Solution do
 
 
   context do
-    let(:a) { (-10...10).to_a }
+    let(:a) { (-200...200).to_a }
 
-    it { expect(res).to eq(810) }
+    it do
+      expect(res).to eq(7920200)
+    end
   end
 
 
+  context do
+    let(:a) { (-200...-10).to_a }
+
+    it do
+      expect(res).to eq(-1716)
+    end
+  end
 end
