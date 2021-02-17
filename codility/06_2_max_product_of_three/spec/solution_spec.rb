@@ -5,8 +5,11 @@ module Solution
   def solution(a)
     max_product = 0
     a.combination(3).each do |triplet|
+      #p triplet
       product = triplet.inject(:*)
-      max_product = product if product.abs > max_product.abs
+      #p product
+      #puts "\n"
+      max_product = product if product > max_product
     end
     max_product
   end
@@ -38,14 +41,14 @@ RSpec.describe Solution do
   context do
     let(:a) { [-5, 1, 3, 2] }
 
-    it { expect(res).to eq(-30) }
+    it { expect(res).to eq(6) }
   end
 
 
   context do
-    let(:a) { (-1_000...1000).to_a }
+    let(:a) { (-10...10).to_a }
 
-    it { expect(res).to eq(0) }
+    it { expect(res).to eq(810) }
   end
 
 
