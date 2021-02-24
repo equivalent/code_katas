@@ -29,6 +29,16 @@ RSpec.describe 'Depth First Search (DFS) in Ruby - My solution' do
     end
   end
 
+  def dfs_post_order(graph, node, visited, marked = [])
+    return if marked.include?(node)
+    marked  << node
+    node.neighbours.each do |neighbour|
+      dfs_post_order(graph, neighbour, visited, marked)
+    end
+
+    visited << node
+  end
+
   let(:zero){    Node.new(0) }
   let(:one) {    Node.new(1) }
   let(:two) {    Node.new(2) }
@@ -98,10 +108,16 @@ RSpec.describe 'Depth First Search (DFS) in Ruby - My solution' do
       eight.add(nine)
     end
 
-    it  do
+    it 'pre_order'  do
       visited = []
       dfs(zero, zero, visited )
       expect(visited.map(&:value)).to eq [0, 1, 2, 4, 3, 6, 5, 7, 8, 9]
+    end
+
+    it 'post order'  do
+      visited = []
+      dfs_post_order(zero, zero, visited )
+      expect(visited.map(&:value)).to eq [2, 4, 6, 9, 8, 7, 5, 3, 1, 0]
     end
   end
 end
