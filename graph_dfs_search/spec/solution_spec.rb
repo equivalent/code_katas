@@ -1,6 +1,4 @@
 require 'rspec'
-require 'irb'
-
 
 class Node
   attr_reader :value, :neighbours
@@ -22,9 +20,7 @@ class Node
   end
 end
 
-
-RSpec.describe 'Depth First Search (DFS) in Ruby' do
-  # my attempt
+RSpec.describe 'Depth First Search (DFS) in Ruby - My solution' do
   def dfs(graph, node, visited)
     return if visited.include?(node)
     visited << node
@@ -32,28 +28,6 @@ RSpec.describe 'Depth First Search (DFS) in Ruby' do
       dfs(graph, neighbour, visited)
     end
   end
-
-  # correct most performent solution from Reducible https://www.youtube.com/watch?v=PMMc4VsIacU&t=604s
-  def dfs_reducible1(graph, node, visited_map)
-    visited_map[node.value] = true
-    node.neighbours.each do |neighbour|
-      dfs_reducible1(graph, neighbour, visited_map) unless visited_map[neighbour.value]
-    end
-  end
-
-  def dfs_reducible2(graph, start_node, visited_map)
-    stack = [start_node]
-    while stack.size > 0
-      current_node = stack.pop
-      unless visited_map[current_node.value]
-        visited_map[current_node.value] = true
-        current_node.neighbours.each do |neighbour|
-          stack << neighbour unless visited_map[neighbour.value]
-        end
-      end
-    end
-  end
-
 
   let(:zero){    Node.new(0) }
   let(:one) {    Node.new(1) }
@@ -65,8 +39,6 @@ RSpec.describe 'Depth First Search (DFS) in Ruby' do
   let(:seven) {  Node.new(7) }
   let(:eight) { Node.new(8) }
   let(:nine) {   Node.new(9) }
-
-
 
 
   describe 'small graph' do
@@ -99,18 +71,6 @@ RSpec.describe 'Depth First Search (DFS) in Ruby' do
       dfs(zero, zero, visited )
       expect(visited.map(&:value)).to eq [0, 1, 3, 2, 4]
     end
-
-    it 'solution by Reducible youtube chanell' do
-      visited_map = {}
-      dfs_reducible1(zero, zero, visited_map )
-      expect(visited_map.keys).to eq [0, 1, 3, 2, 4]
-    end
-
-    it 'solution2 by Reducible youtube chanell' do
-      visited_map = {}
-      dfs_reducible2(zero, zero, visited_map )
-      expect(visited_map.keys).to match_array([0, 3, 4, 2, 1])
-    end
   end
 
   describe 'large graph' do
@@ -138,22 +98,10 @@ RSpec.describe 'Depth First Search (DFS) in Ruby' do
       eight.add(nine)
     end
 
-    it 'my solution' do
+    it  do
       visited = []
       dfs(zero, zero, visited )
       expect(visited.map(&:value)).to eq [0, 1, 2, 4, 3, 6, 5, 7, 8, 9]
-    end
-
-    it 'solution by Reducible youtube chanell' do
-      visited_map = {}
-      dfs_reducible1(zero, zero, visited_map )
-      expect(visited_map.keys).to eq [0, 1, 2, 4, 3, 6, 5, 7, 8, 9]
-    end
-
-    it 'solution2 by Reducible youtube chanell' do
-      visited_map = {}
-      dfs_reducible2(zero, zero, visited_map )
-      expect(visited_map.keys).to match_array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     end
   end
 end
