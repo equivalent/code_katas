@@ -16,17 +16,15 @@ RSpec.describe 'Solution' do
   def solution(pairs)
     offsprings = {}
     parents = []
-    banned_parents = []
     pairs.each do |parent, child|
       parents << parent
-      banned_parents << child
 
       offsprings[child] ||= []
       offsprings[child] << parent
     end
 
     [
-      (parents - banned_parents).uniq,
+      (parents - offsprings.keys).uniq,
       offsprings.select { |child, parents| parents.size == 1 }.keys.sort
     ]
   end
