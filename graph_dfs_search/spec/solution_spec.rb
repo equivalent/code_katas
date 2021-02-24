@@ -1,6 +1,4 @@
-# Depth First Search (DFS)
-
-require 'rspec/autorun'
+require 'rspec'
 require 'irb'
 
 
@@ -26,8 +24,14 @@ end
 
 
 RSpec.describe 'Depth First Search (DFS) in Ruby' do
-  def x
 
+
+  def dfs(graph, node, visited)
+    return if visited.include?(node)
+    visited << node
+    node.neighbours.each do |neighbour|
+      dfs(graph, neighbour, visited)
+    end
   end
 
   describe 'small graph' do
@@ -55,6 +59,11 @@ RSpec.describe 'Depth First Search (DFS) in Ruby' do
       expect(zero.neighbours).to match_array([one, two, three])
       expect(three.neighbours).to match_array([four, zero, one, two])
       expect(four.neighbours).to match_array([three])
+
+      visited = []
+      solution = dfs(zero, zero, visited )
+
+      expect(visited.map(&:value)).to eq [0, 1, 3, 2, 4]
     end
   end
 end
