@@ -75,6 +75,4 @@ RSpec.describe 'solutions by Reducible youtube chanell' do
     solution.bfs(graph, 0)
     expect(solution.visits).to eq [0, 1, 2, 4, 3, 5, 6, 8, 7, 9]
   end
-
 end
-
