@@ -1,4 +1,4 @@
-# Binary Tree 2
+#  Detect node parents
 
 
 from: https://www.glassdoor.co.in/Interview/Karat-Interview-Questions-E1286154.htm
@@ -15,11 +15,11 @@ https://codereview.stackexchange.com/questions/109034/breadth-and-depth-first-se
 
     For example, in this diagram, 3 is a child of 1 and 2, and 5 is a child of 4:
 
-    1   2  4
-     \ / / | \
-      3  5 8 9
-       \ / \ \
-        6 7 11
+    1   2   4
+     \ /  / | \
+      3   5 8 9
+       \ / \   \
+        6  7   11
 
     Sample input/output (pseudodata):
 
