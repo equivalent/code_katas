@@ -26,11 +26,20 @@ end
 RSpec.describe 'Depth First Search (DFS) in Ruby' do
 
 
+  # my attempt
   def dfs(graph, node, visited)
     return if visited.include?(node)
     visited << node
     node.neighbours.each do |neighbour|
       dfs(graph, neighbour, visited)
+    end
+  end
+
+  # correct most performent solution from Reducible https://www.youtube.com/watch?v=PMMc4VsIacU&t=604s
+  def dfs_reducible1(graph, node, visited_map)
+    visited_map[node.value] = true
+    node.neighbours.each do |neighbour|
+      dfs_reducible1(graph, neighbour, visited_map) unless visited_map[neighbour.value] == true
     end
   end
 
@@ -60,10 +69,15 @@ RSpec.describe 'Depth First Search (DFS) in Ruby' do
       expect(three.neighbours).to match_array([four, zero, one, two])
       expect(four.neighbours).to match_array([three])
 
+      # my solution
       visited = []
-      solution = dfs(zero, zero, visited )
-
+      dfs(zero, zero, visited )
       expect(visited.map(&:value)).to eq [0, 1, 3, 2, 4]
+
+      # solution by Reducible youtube chanell
+      visited_map = {}
+      dfs_reducible1(zero, zero, visited_map )
+      expect(visited_map.keys).to eq [0, 1, 3, 2, 4]
     end
   end
 end
