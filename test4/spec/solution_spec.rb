@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 class Solution
-  def solution
+  def solution(a)
   end
 end
 
@@ -12,9 +12,9 @@ RSpec.describe Solution do
     subject.solution(a)
   end
 
-  context '' do
+  context  do
     let(:a) { [] }
-    it 'spec_name' do
+    it do
     end
   end
 end
